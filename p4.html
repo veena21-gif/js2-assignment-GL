@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Trello Board</title>
+        <link rel="stylesheet" href="js1.css">
+        <link rel="stylesheet" href="js2.css">
+        <link rel="stylesheet" href="js3.css">
+        <link rel="stylesheet" href="js4.css">
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+        <style>
+                body {
+                    font-family: Segoe UI, Roboto, "Helvetica Neue", sans-serif;
+                    font-size: 14px;
+                    color: #555;
+                    margin-bottom: 0;
+                    overflow-x: hidden;
+                    background-image: url("https://wallpapercave.com/wp/wp3190713.jpg");
+                    background-size: cover;
+                    background-attachment: fixed;
+                }
+                body {
+                    line-height: 1;
+                }
+                .navbar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                display: flex;
+                justify-content: space-between;
+                height: 50px;
+                padding: 8px 20px;
+                background-color: rgba( 64, 144, 172, 0.65 );
+                color: white;
+            }
+            article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+                    display: block;
+                }
+                .navbar .menu {
+                    justify-content: flex-start;
+                }
+                .navbar > * {
+                    width: 300px;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                }
+
+                ol, ul {
+                    list-style: none;
+                }
+                .navbar .menu > *, .navbar .actions > * {
+                    display: inline-block;
+                    padding: 8px;
+                    border-radius: 2px;
+                    margin: 0px 4px;
+                    background-color: rgba( 64, 144, 172, 1 );
+                }
+
+                .pointer {
+                    cursor: pointer !important;
+                }
+
+                        .fa, .fas {
+                        font-weight: 900;
+                    }
+                    .fa, .far, .fas {
+                        font-family: "Font Awesome 5 Free";
+                    }
+                    .fa, .fab, .fad, .fal, .far, .fas {
+                        -moz-osx-font-smoothing: grayscale;
+                        -webkit-font-smoothing: antialiased;
+                        display: inline-block;
+                        font-style: normal;
+                        font-variant: normal;
+                        text-rendering: auto;
+                        line-height: 1;
+                    }
+                    .navbar .menu-input {
+                    background-color: transparent;
+                    padding: 0;
+
+                }
+                .navbar .menu-input input {
+                    width: 120px;
+                    padding: 4px 0.5em;
+                    border: none;
+                    border-radius: 2px;
+                    outline: none;
+                    background-color: rgba( 64, 144, 172, 1 );
+                    color: white;
+                    font-size: 1.15em;
+                    line-height: 1.4;
+                    color: black;
+                }
+
+                input, textarea {
+                    border: none;
+                    outline: none;
+                }
+                * {
+                    box-sizing: border-box;
+                }
+
+                .navbar .menu-input {
+            background-color: transparent;
+            padding: 0;
+        }
+                .navbar .menu {
+                justify-content: flex-start;
+            }
+            .navbar > * {
+                width: 300px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+            }
+
+            ol, ul {
+                list-style: none;
+            }
+                    .navbar .app-title {
+                    justify-content: space-around;
+                    font-family: "Comic Sans", "Comic Sans MS", cursive;
+                    font-size: 1.3em;
+                }
+                .navbar .actions {
+                justify-content: flex-end;
+            }
+            .board-container {
+                display: flex;
+                height: 100vh;
+                overflow-y: hidden;
+            }
+            .board-menu {
+                position: fixed;
+                top: 50px;
+                right: 0px;
+                left: 0px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                height: 40px;
+                padding: 0 20px;
+                color: black;
+                background-color: rgba( 128, 128, 128, 0.3 );
+                color: white;
+            }
+            .board-show-menu.show-menu {
+            background-color: rgba( 64, 144, 172, 0.65 );
+        }
+                    .board-show-menu-inner {
+                display: block;
+            }
+            .board-show-menu-item {
+                margin: 6px 0;
+            }
+            .board-show-menu-item .fas {
+                    width: 20px;
+                }
+                .board-show-menu.show-menu .board-show-menu-items {
+                    display: block;
+                }
+                .board {
+                display: flex;
+                flex-basis: 100%;
+            }
+            .task-lists {
+            display: flex;
+            flex-basis: 100%;
+            flex-wrap: nowrap;
+            flex-shrink: 0;
+            overflow: auto;
+            margin-top: 20px;
+        }
+        .task-lists-wrapper {
+            display: flex;
+            flex-basis: 100%;
+            flex-wrap: nowrap;
+            flex-shrink: 0;
+            padding: 84px 20px 20px;
+        }
+        .add-task-list-wrapper {
+            flex-shrink: 0;
+        }
+        .task-list, .add-list {
+            padding: 10px;
+            margin-right: 10px;
+            border-radius: 4px;
+            background-color: rgba( 240, 240, 240, 0.9 );
+        }
+        .add-card-message, .add-list-message {
+                margin-bottom: 4px 0 8px;
+            }
+            .hide {
+                display: none;
+            }
+            .full-width-input {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: 1px solid lightgray;
+            font-size: 1em;
+            resize: none;
+        }
+
+        input, textarea {
+            border: none;
+            outline: none;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        .list-form-actions {
+            margin: 10px 0;
+        }
+        .task-edit-button, .add-card-button, .add-list-button {
+    margin-right: 8px;
+}
+                .pointer {
+                    cursor: pointer !important;
+                }
+                .btn-primary {
+                    background-color: olive;
+                    color: white;
+                }
+                .btn-inline {
+                    display: inline-block;
+                    width: auto;
+                }
+                .btn {
+                    display: block;
+                    width: 100%;
+                    padding: 8px;
+                    border: none;
+                    font-size: 1.2em;
+                    color: #aaa;
+                    background-color: #f9f9f9;
+                    text-align: center;
+                }
+                .task-edit-cancel, .add-card-cancel, .add-list-cancel {
+                    position: relative;
+                    top: 4px;
+                }
+                .task-edit-form-actions, .add-card-form-actions, .add-list-form-actions {
+                    margin: 10px 0;
+                }
+                .task-list, .add-list {
+                    padding: 10px;
+                    margin-right: 10px;
+                    border-radius: 4px;
+                    background-color: rgba( 240, 240, 240, 0.9 );
+                }
+                .add-task-list-wrapper {
+                        flex-shrink: 0;
+                    }
+                    .task-lists-wrapper {
+                    display: flex;
+                    flex-basis: 100%;
+                    flex-wrap: nowrap;
+                    flex-shrink: 0;
+                    padding: 84px 20px 20px;
+                }
+                .task-lists {
+                display: flex;
+                flex-basis: 100%;
+                flex-wrap: nowrap;
+                flex-shrink: 0;
+                overflow: auto;
+                margin-top: 20px;
+            }
+            .board {
+            display: flex;
+            flex-basis: 100%;
+        }
+        .board-container {
+            display: flex;
+            height: 100vh;
+            overflow-y: hidden;
+        }
+                </style>
+
+    </head>
+<body>
+    <body>
+        <nav class="navbar">
+            <ul class="menu">
+                <li class="pointer">
+                    <i class="home fas fa-home"></i>
+                </li>
+                <li class="pointer">
+                    <i class="boards fas fa-th-list"></i>
+                    Boards
+                </li>
+                <li class="menu-input">
+                    <input type="text">
+                </li>
+            </ul>
+            <div class="app-title">
+                Tralala
+            </div>
+            <div class="actions">
+                <span class="pointer">
+                    <i class="fas fa-plus" id="add-board"></i>
+                </span>
+                <span class="pointer">
+                    <i class="fas fa-user" id="profile-image"></i>
+                </span>
+            </div>
+        </nav>
+        <div class="board-container">
+            <div class="board-menu">
+                <div class="board-title">New board</div>
+                <div class="board-show-menu">
+                    <div class="board-show-menu-inner">
+                        <i class="fas fa-ellipsis-v">
+
+                        </i>
+                        Show menu
+                    </div>
+                    <div class="board-show-menu-items">
+                        <div class="board-show-menu-item delete-selected-task pointer">
+                            <i class="fas fa-times">
+
+                            </i>
+                            Delete selected task
+                        </div>
+                        <div class="board-show-menu-item move-selected-task pointer">
+                            <i class="fas fa-arrows-alt">
+
+                            </i>
+                            Move selected task
+                            <select>
+                                
+                            </select>
+                        </div>
+                        <div class="board-show-menu-item save-board pointer">
+                            <i class="fas fa-save">
+
+                            </i>
+                            Save board
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="board">
+                <div class="task-lists">
+                    <div class="task-lists-wrapper"><div class="add-task-list-wrapper">
+            <div class="add-list">
+                <div class="add-list-message pointer">+ Add list</div>
+                
+            <div class="add-list-form hide">
+                <form>
+                    <textarea rows="3" placeholder="Enter a title for this card..." class="add-list-input full-width-input"></textarea>
+                    <div class="add-list-form-actions">
+                        <button class="btn btn-inline btn-primary add-list-button pointer">Add List</button>
+                        <i class="fas fa-2x fa-times add-list-cancel pointer"></i>
+                    </div>
+                </form>
+            </div>
+        
+            </div>
+        </div></div>
+                  
+                </div>
+            </div>
+        </div>
+
+        <script src="board.js" type="module"></script>
+        <script src="componet.js" type="module"></script>
+        <script src="task.js" type="module"></script>
+        <script src="task-list.js" type="module"></script>
+        <script src="trello-like-dashboard.js" type="module"></script>
+</body>
+</html>
